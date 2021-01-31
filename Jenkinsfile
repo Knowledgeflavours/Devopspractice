@@ -14,6 +14,21 @@ node{
          }
         
     }
+    stage('Review'){
+       withMaven(maven:'MyMaven'){
+             sh 'mvn pmd:pmd'
+         }
+    }
+    stage('Test'){
+       withMaven(maven:'MyMaven'){
+             sh 'mvn test'
+         }
+    }
+    stage('Coverage'){
+       withMaven(maven:'MyMaven'){
+             sh 'mvn cobertura:cobertura -Dcobertura.report.format=xml'
+         }
+    }
     stage('Package'){
          withMaven(maven:'MyMaven'){
              sh 'mvn package'
